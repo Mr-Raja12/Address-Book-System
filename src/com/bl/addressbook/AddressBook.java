@@ -5,7 +5,7 @@ public class AddressBook {
     Scanner sc = new Scanner(System.in);
     ArrayList<ContactPerson> addressBook1 = new ArrayList<>();
     /**
-     *Creating a new contact
+     * Creating a new contact
      */
     public ContactPerson createContact() {
         ContactPerson person = new ContactPerson();
@@ -33,6 +33,7 @@ public class AddressBook {
      */
     public void addContact() {
         ContactPerson contactPerson = createContact();
+        addressBook1.add(contactPerson);
         System.out.println(contactPerson);
         System.out.println("Contact added successfully");
     }
@@ -72,9 +73,34 @@ public class AddressBook {
             System.out.println("Oops...Contact not found");
         }
     }
+    /**
+     * to delete a person using person's name
+     */
+    public void deleteContact(){
+        boolean isContactFound = false;
+        System.out.println("enter name to delete contact");
+        String name = sc.next();
+        for (ContactPerson contactPerson : addressBook1){
+            if (contactPerson.getFirstName().equalsIgnoreCase(name)) {
+                System.out.println("contact found:");
+                isContactFound = true;
+                System.out.println(contactPerson);
+                System.out.println("confirm to delete (y/n)");
+                if (sc.next().equalsIgnoreCase("y")) {
+                    addressBook1.remove(contactPerson);
+                    System.out.println("contact deleted");
+                }
+                break;
+            }
+        }
+        if (!isContactFound) {
+            System.out.println("Opps... contact not found");
+        }
+    }
     void display(){
         for (ContactPerson person : addressBook1) {
             System.out.println(person);
         }
     }
 }
+
