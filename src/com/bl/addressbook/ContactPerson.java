@@ -1,5 +1,9 @@
 package com.bl.addressbook;
 public class ContactPerson {
+    /*
+     * Create a Contacts in Address Book with first and last names,
+     * address, city, state, zip, phone number and email...
+     */
     private String firstName, lastName, address, city, state, email;
     private int zipCode;
     private String phoneNumber;
