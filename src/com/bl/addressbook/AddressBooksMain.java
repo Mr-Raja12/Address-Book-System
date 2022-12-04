@@ -1,37 +1,15 @@
 package com.bl.addressbook;
-import java.util.Scanner;
 public class AddressBooksMain {
-    private static Scanner sc;
     /**
-     * @param Raja Baitha
+     * @param Raja baitha
+     *  Welcome to address book displaying
+     *  Create a contact in address book
      */
     public static void main(String[] args) {
         System.out.println("Welcome to Address Book program");
+        System.out.println("--------------------------");
+        System.out.println("Contact created in address book is: ");
         AddressBook addressBook = new AddressBook();
-        Scanner sc = new Scanner(System.in);
-
-        boolean flag1 = true;
-        while (flag1){
-            System.out.println("*******************\nSelect Option : ");
-            System.out.println("1.Add Contact\n2.Edit Contact\n3.Delete Contact\n4.Display\n5.Exit");
-            int option = sc.nextInt();
-            switch (option) {
-                case 1:
-                    addressBook.addContact();
-                    break;
-                case 2:
-                    addressBook.editContact();
-                    break;
-                case 3:
-                    addressBook.display();
-                    break;
-                case 4:
-                    flag1 = false;
-                    break;
-                default:
-                    System.out.println(option + " is not valid option");
-                    break;
-            }
-        }
+        addressBook.ContactPerson();
     }
 }
