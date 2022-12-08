@@ -1,94 +1,94 @@
 package com.bl.addressbook;
+import java.util.Scanner;
 public class ContactPerson {
-    /*
-     * Create a Contacts in Address Book with first and last names,
-     * address, city, state, zip, phone number and email...
-     */
-    private String firstName, lastName, address, city, state, email;
-    private int zipCode;
-    private long phoneNumber;
-
-    public ContactPerson() {
-
-    }
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public int getZipCode() {
-        return zipCode;
-    }
-
-    public long getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setZipCode(int zipCode) {
-        this.zipCode = zipCode;
-    }
-
-    public void setPhoneNumber(long phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
     /**
-     *
-     * @return toString is used to convert all parameter to String
+     * Declaring variables for Address Book System
      */
-    @Override
-    public String toString() {
-        return "ContactPerson{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", address='" + address + '\'' +
-                ", city='" + city + '\'' +
-                ", state='" + state + '\'' +
-                ", email='" + email + '\'' +
-                ", zipCode=" + zipCode +
-                ", phoneNumber=" + phoneNumber +
-                '}';
+    Scanner s = new Scanner(System.in);
+    class Entry{
+        private String first;
+        private String last;
+        private String address;
+        private String email;
+        Entry(String first, String last, String address, String email){
+            this.first = first;
+            this.last = last;
+            this.address = address;
+            this.email = email;
+        }
+        Entry(){
+            first = "";
+            last = "";
+            address = "";
+            email = "";
+        }
+        public void readEntry(){
+            System.out.println("First Name:"+first );
+            System.out.println("Last Name:"+last );
+            System.out.println("Address:"+address );
+            System.out.println("Email:"+email );
+        }
     }
+
+    private int entries = 0;
+    Entry[] contents;
+    public void initEntries(int e){
+        contents = new Entry[e];
+        for (int i = 0;i<contents.length;i++){
+            contents[i] = new Entry();
+        }
+    }
+    public int getEntries(){
+        return contents.length;
+    }
+
+    public void add(String first, String last, String address, String email){
+        if (entries<contents.length){
+            contents[entries] = new Entry(first, last, address, email);
+            entries++;
+        }
+        else System.out.println("Error: book is full");
+    }
+
+    public void remove(int entry){
+        if (entries>0){
+            contents[entry] = new Entry();
+            for (int i = 0;i<entries-entry;i++){
+                if (entry+1==entries) contents[entry] = new Entry();
+                else{
+                    Entry temp = contents[entry+i];
+                    contents[entry+i] = contents[entry+i+1]; //Removes an entry end moves each entry after it one backwards.
+                    contents[entry+i+1] = temp;
+                }
+            }
+            entries--;
+        }
+        else System.out.println("Error: book is empty.");
+    }
+
+    public void edit(String first, String last, String address, String email, int selection){
+        contents[selection].first = first;
+        contents[selection].last = last;
+        contents[selection].address = address;
+        contents[selection].email = email;
+    }
+
+    public void sort(int n){
+        for(int i = 0;i<contents.length;i++){
+            for (int j = 0;j<contents.length;j++){
+                switch(n){
+                    default :
+                        if (contents[i].first.compareTo(contents[j].first)<0){
+                            Entry temp = contents[i];
+                            contents[i] = contents[j];
+                            contents[j] = temp;
+                        }else {
+                            System.out.println("Invalid input");
+                        }
+                        break;
+                }
+            }
+        }
+    }
+
 }
