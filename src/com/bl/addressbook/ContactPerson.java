@@ -2,7 +2,7 @@ package com.bl.addressbook;
 import java.util.Scanner;
 public class ContactPerson {
     /**
-     * Declaring variables for Address Book System
+     * Declaring variables for Address Book Systems
      */
     Scanner s = new Scanner(System.in);
     class Entry{
