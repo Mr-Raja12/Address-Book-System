@@ -14,7 +14,7 @@ public class AddressBooksMain {
      * 6)Refactor to add multiple Address Book to the System. Each Address Book has a unique Name
      */
     public static void main(String[] args) {
-        Scanner s = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         System.out.print("How many Address Books do you want to create? : ");
         int howManyBooks;
         int howManyEntries;
@@ -23,7 +23,7 @@ public class AddressBooksMain {
 
 
         while (true) {
-            howManyBooks = s.nextInt();
+            howManyBooks = scanner.nextInt();
             if (howManyBooks > 0) {
                 library = new ContactPerson[howManyBooks];
                 break;
@@ -38,7 +38,7 @@ public class AddressBooksMain {
 
             while (true) {
                 System.out.print("How many entries in book " + i + "? : ");
-                howManyEntries = s.nextInt();
+                howManyEntries = scanner.nextInt();
                 if (howManyEntries > 0) {
                     library[i].initEntries(howManyEntries);
                     break;
@@ -67,41 +67,41 @@ public class AddressBooksMain {
             System.out.println("4. all entries in this book");
             System.out.println("5. Exit the menu");
             System.out.print("Enter : ");
-            selection = s.nextInt();
+            selection = scanner.nextInt();
             String first, last, address, email;
             switch (selection) {
                 case 1:
                     System.out.print("First name : ");
-                    first = s.next();
+                    first = scanner.next();
                     System.out.print("Last name : ");
-                    last = s.next();
+                    last = scanner.next();
                     System.out.print("Address : ");
-                    address = s.next();
+                    address = scanner.next();
                     System.out.print("Email : ");
-                    email = s.next();
+                    email = scanner.next();
                     library[selectedBook].add(first, last, address, email);
                     break;
                 case 2:
                     System.out.print("Remove which entry? ");
-                    int entry = s.nextInt();
+                    int entry = scanner.nextInt();
                     library[selectedBook].remove(entry);
                     break;
                 case 3:
                     System.out.print("Edit which entry?");
-                    int whichEntry = s.nextInt();
+                    int whichEntry = scanner.nextInt();
                     System.out.print("First name : ");
-                    first = s.next();
+                    first = scanner.next();
                     System.out.print("Last name : ");
-                    last = s.next();
+                    last = scanner.next();
                     System.out.print("Address : ");
-                    address = s.next();
+                    address = scanner.next();
                     System.out.print("Email : ");
-                    email = s.next();
+                    email = scanner.next();
                     library[selectedBook].edit(first, last, address, email, whichEntry);
                     break;
                 case 4:
                     System.out.println("Showing by first name - press 1 : ");
-                    library[selectedBook].sort(s.nextInt());
+                    library[selectedBook].sort(scanner.nextInt());
                     break;
                 case 5:
                     done = true;
@@ -114,6 +114,6 @@ public class AddressBooksMain {
             }
 
         }
-        s.close();
+        scanner.close();
     }
 }
