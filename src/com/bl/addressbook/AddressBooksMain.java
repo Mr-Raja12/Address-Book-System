@@ -15,7 +15,7 @@ public class AddressBooksMain {
      */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("How many Address Books do you want to create? : ");
+        System.out.print("How many Address Books do you want to create : ");
         int howManyBooks;
         int howManyEntries;
 
