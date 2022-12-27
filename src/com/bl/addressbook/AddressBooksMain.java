@@ -1,119 +1,110 @@
 package com.bl.addressbook;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 public class AddressBooksMain {
     /**
-     * @param Raja baitha
+     * @param Raja
      * Welcome to address book displaying
      * 1)Create a contact in address book
      * 2)Ability to add a new Contact to Address Book - Use Console to add person details from
      * 3)edit existing contact person using their name.
      * 4)Ability to delete a person using person's name.
      * 5)Ability to add multiple person to Address Book
-     * 6)Refactor to add multiple Address Book to the System. Each Address Book has a unique Name
+     * 6)Refactor to add multiples Address Book to the System. Each Address Book has a unique Name
      */
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("How many Address Books do you want to create : ");
-        int howManyBooks;
-        int howManyEntries;
-
-        ContactPerson[] library = new ContactPerson[0];
-
-
+        System.out.println("Welcome to Address Book");  //print welcome massage
+        Scanner scanner = new Scanner(System.in);    //create object
+        // AddressBook addressBook = new AddressBook();
+        HashMap<String, AddressBook> addressBookHashMap = new HashMap<>();  //creating an hashmap
         while (true) {
-            howManyBooks = scanner.nextInt();
-            if (howManyBooks > 0) {
-                library = new ContactPerson[howManyBooks];
-                break;
-            } else System.out.print("You must create at least 1 book.");
-        }
-
-
-        for (int i = 0; i < library.length; i++) {
-
-
-            library[i] = new ContactPerson();
-
-            while (true) {
-                System.out.print("How many entries in book " + i + "? : ");
-                howManyEntries = scanner.nextInt();
-                if (howManyEntries > 0) {
-                    library[i].initEntries(howManyEntries);
+            System.out.println(
+                    "0.Exit \n1.Add Contact \n2.Display Contact \n3.Edit Contact \n4.Delete Contact \n5.Add new Address Book"
+                            + "\n6.Display available address books \n7.Display all address books");
+            int number = scanner.nextInt();     //Scanner object reads in a string of digits and convert into an int type
+            switch (number) {
+                case 0:
+                    System.exit(0);
                     break;
-                } else System.out.println("You must create at least 1 Entry.");
-            }
-
-
-        }
-        boolean done = false;
-        int selectedBook = 0;
-        int selection;
-        while (done == false) {
-            System.out.println("Book " + selectedBook + " is currently selected.");
-
-            for (int i = 0; i < library[selectedBook].getEntries(); i++) {
-                System.out.println("*****Entry " + i + "*****");
-                library[selectedBook].contents[i].readEntry(); //Accessing the array of entries INSIDE the array of books/the library
-                System.out.println("**********************");
-            }
-
-
-            System.out.println("Select an option!");
-            System.out.println("1. Add a contact");
-            System.out.println("2. Remove a contact");
-            System.out.println("3. Edit a contact");
-            System.out.println("4. all entries in this book");
-            System.out.println("5. Exit the menu");
-            System.out.print("Enter : ");
-            selection = scanner.nextInt();
-            String first, last, address, email;
-            switch (selection) {
                 case 1:
-                    System.out.print("First name : ");
-                    first = scanner.next();
-                    System.out.print("Last name : ");
-                    last = scanner.next();
-                    System.out.print("Address : ");
-                    address = scanner.next();
-                    System.out.print("Email : ");
-                    email = scanner.next();
-                    library[selectedBook].add(first, last, address, email);
+                    System.out.println("Enter the address book name to add contact in that address book : ");
+                    String addressBookName = scanner.next();    //taking input one string at a time
+                    if (!addressBookHashMap.containsKey(addressBookName)) {
+                        System.out.println("Address book not exists!");
+                    } else {
+                        AddressBook addressBook = addressBookHashMap.get(addressBookName);
+                        addressBook.addContact();
+                    }
                     break;
                 case 2:
-                    System.out.print("Remove which entry? ");
-                    int entry = scanner.nextInt();
-                    library[selectedBook].remove(entry);
+                    System.out.println("Enter the address book name to display contacts in that address book : ");
+                    String addressBookName1 = scanner.next();
+                    if (!addressBookHashMap.containsKey(addressBookName1)) {
+                        System.out.println("Address book not exists!");
+                    } else {
+                        AddressBook addressBook = addressBookHashMap.get(addressBookName1);
+                        addressBook.showContacts();
+                    }
                     break;
                 case 3:
-                    System.out.print("Edit which entry?");
-                    int whichEntry = scanner.nextInt();
-                    System.out.print("First name : ");
-                    first = scanner.next();
-                    System.out.print("Last name : ");
-                    last = scanner.next();
-                    System.out.print("Address : ");
-                    address = scanner.next();
-                    System.out.print("Email : ");
-                    email = scanner.next();
-                    library[selectedBook].edit(first, last, address, email, whichEntry);
+                    System.out.println("Enter the address book name to edit contacts in that address book : ");
+                    String addressBookName2 = scanner.next();
+                    if (!addressBookHashMap.containsKey(addressBookName2)) {
+                        System.out.println("Address book not exists!");
+                    } else {
+                        AddressBook addressBook = addressBookHashMap.get(addressBookName2);
+                        addressBook.editContact();
+                    }
                     break;
                 case 4:
-                    System.out.println("Showing by first name - press 1 : ");
-                    library[selectedBook].sort(scanner.nextInt());
+                    System.out.println("Enter the address book name to edit contacts in that address book : ");
+                    String addressBookName3 = scanner.next();
+                    if (!addressBookHashMap.containsKey(addressBookName3)) {
+                        System.out.println("Address book not exists!");
+                    } else {
+                        AddressBook addressBook = addressBookHashMap.get(addressBookName3);
+                        addressBook.deleteContact();
+                    }
                     break;
                 case 5:
-                    done = true;
+                    System.out.println("Enter the address book name : ");
+                    String name = scanner.next();
+                    if (addressBookHashMap.containsKey(name)) {
+                        System.out.println("Address book already exists!");
+                    } else {
+                        AddressBook addressBook = new AddressBook();
+                        addressBookHashMap.put(name, addressBook);
+                    }
+                    break;
+                case 6:
+                    Set<String> keys = addressBookHashMap.keySet();
+                    if (keys.isEmpty()) {
+                        System.out.println("No address books available!");
+                    }
+                    for (String str : keys) {
+                        System.out.print(str + " ");
+                    }
+                    System.out.println();
+                    break;
+                case 7:
+                    Set<Map.Entry<String, AddressBook>> addressBook = addressBookHashMap.entrySet();
+                    if (addressBook.isEmpty()) {
+                        System.out.println("No address books available!");
+                    }
+                    for (Map.Entry entry : addressBook) {
+                        System.out.println(entry.getKey());
+                        AddressBook addBook = (AddressBook) entry.getValue();
+                        addBook.showContacts();
+                    }
                     break;
                 default:
-                    System.out.print("Please choose a valid number");
-                    break;
-
-
+                    System.out.println("Invalid Input");
             }
-
         }
-        scanner.close();
+
     }
 }
